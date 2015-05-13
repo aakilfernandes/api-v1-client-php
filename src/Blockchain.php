@@ -40,9 +40,7 @@ if(!function_exists('curl_init')) {
 }
 
 class Blockchain {
-    const URL = 'https://blockchain.info/';
-
-
+    private $url = 'https://blockchain.info/';
     private $ch;
     private $api_code = null;
 
@@ -79,8 +77,12 @@ class Blockchain {
         curl_setopt($this->ch, CURLOPT_TIMEOUT, intval($timeout));
     }
 
+    public function setUrl($url){
+        $this->url = $url;
+    }
+
     public function post($resource, $data=null) {
-        curl_setopt($this->ch, CURLOPT_URL, self::URL.$resource);
+        curl_setopt($this->ch, CURLOPT_URL, $this->url.$resource);
         curl_setopt($this->ch, CURLOPT_POST, true);
 
         curl_setopt($this->ch, CURLOPT_HTTPHEADER, 
@@ -111,7 +113,7 @@ class Blockchain {
         curl_setopt($this->ch, CURLOPT_HTTPHEADER, array());
 
         $query = http_build_query($params);
-        curl_setopt($this->ch, CURLOPT_URL, self::URL.$resource.'?'.$query);
+        curl_setopt($this->ch, CURLOPT_URL, $this->url.$resource.'?'.$query);
 
         return $this->_call();
     }
