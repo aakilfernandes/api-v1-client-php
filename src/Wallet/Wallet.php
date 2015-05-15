@@ -56,8 +56,11 @@ class Wallet {
         return \Blockchain\Conversion\Conversion::BTC_int2str($json['balance']);
     }
 
-    public function getAddressBalance($address) {
-        return new WalletAddress($this->call('address_balance', array('address'=>$address)));
+    public function getAddressBalance($address,$confirmations = 2) {
+        return new WalletAddress($this->call('address_balance', array(
+            'address'=>$address
+            ,'confirmations'=>$confirmations
+        )));
     }
 
     public function getAddresses() {
