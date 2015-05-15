@@ -81,6 +81,10 @@ class Blockchain {
         $this->url = $url;
     }
 
+    public function curl_setopt($option,$value){
+        curl_setopt($this->ch,$option,$value);
+    }
+
     public function post($resource, $data=null) {
         curl_setopt($this->ch, CURLOPT_URL, $this->url.$resource);
         curl_setopt($this->ch, CURLOPT_POST, true);
